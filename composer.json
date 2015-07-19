@@ -11,7 +11,8 @@
   ],
   "require": {
     "tourze/core": "dev-master",
-    "tourze/tourze": "dev-master"
+    "tourze/tourze": "dev-master",
+    "twig/twig": "^1.18"
   },
   "autoload": {
     "psr-0": {
