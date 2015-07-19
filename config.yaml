@@ -1,7 +1,7 @@
 name: lzpblog
 version: 2
 handle:
-- rewrite: if (!is_dir() && !is_file()) goto "index.php/%{REQUEST_URI}"
+- rewrite: if (!is_dir() && !is_file()) goto "web/index.php/%{REQUEST_URI}"
 - compress:  if ( out_header["Content-type"] ~ "text/css" ) compress
 - compress:  if ( out_header["Content-type"] ~ "text/javascript" ) compress
 - compress:  if ( out_header["Content-type"] ~ "application/pdf" ) compress
