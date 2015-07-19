@@ -58,3 +58,24 @@ Route::set('admin', 'admin/<action>(/<params>).html', [
     'controller' => 'Admin',
     'action'     => 'index',
 ]);
+
+// 后台路由
+Route::set('page-admin', 'admin/page/<controller>(/<action>(/<params>)).html', [
+    //'controller' => 'element|layout|log|Page|Redirect|Snippet',
+    'params' => '.*',
+])
+    ->defaults([
+        'controller' => 'Entry',
+        'action'     => 'index',
+        'directory'  => 'Page'
+    ]);
+
+// 默认路由
+Route::set('default', '(<path>)', [
+    'path' => '.*',
+])
+    ->defaults([
+        'controller' => 'Page',
+        'action'     => 'view',
+    ]);
+
