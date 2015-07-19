@@ -50,46 +50,11 @@ Asset::$version = '20150719';
 // 指定控制器命名空间
 Route::$defaultNamespace = '\\page\\Controller\\';
 
-// 后台部分
-Route::set('uc-admin', UC_PATH . 'admin(/<controller>(/<action>(/<id>)))')
-    ->defaults([
-        'directory'  => 'Admin',
-        'controller' => 'User',
-    ]);
-
-// API部分
-Route::set('uc-api', UC_PATH . 'api(/<controller>(/<action>(/<id>)))')
-    ->defaults([
-        'directory' => 'Api',
-    ]);
-
-// 用户重置密码
-Route::set('uc-register', UC_PATH . 'user/register(-<action>(/<id>))')
-    ->defaults([
-        'directory'  => 'User',
-        'controller' => 'Register',
-        'action'     => 'index',
-    ]);
-
-// 用户重置密码
-Route::set('uc-bind', UC_PATH . 'user/bind(-<action>(/<id>))')
-    ->defaults([
-        'directory'  => 'User',
-        'controller' => 'Bind',
-        'action'     => 'index',
-    ]);
-
-// 用户重置密码
-Route::set('uc-reset', UC_PATH . 'user/reset(-<action>(/<id>))')
-    ->defaults([
-        'directory'  => 'User',
-        'controller' => 'Reset',
-        'action'     => 'index',
-    ]);
-
-// 用户通用部分
-Route::set('uc-common', UC_PATH . '(<controller>(/<action>(/<id>)))')
-    ->defaults([
-        'controller' => 'User',
-        'action'     => 'index',
-    ]);
+// 后台路由
+Route::set('admin', 'admin/<action>(/<params>).html', [
+    'action' => 'login|logout',
+    'params' => '.*',
+])->defaults([
+    'controller' => 'Admin',
+    'action'     => 'index',
+]);

@@ -1,13 +1,13 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php
+
 /**
  * 扩展后台的菜单
  */
-return array(
+return [
 
-	'users'	=> array(
-		'admin'	=> '@@qq.123',
-		'ywisax'	=> 'Ladder19',
-	),
+    'users' => [
+        'admin'  => '@@qq.123',
+        'ywisax' => 'Ladder19',
+    ],
 
-);
-
+];
