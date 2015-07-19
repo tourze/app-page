@@ -1,0 +1,1 @@
+<?php defined('SYSPATH') OR die('No direct access allowed.'); ?><head>	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />	<title><?php echo (isset($title) ? $title . ' - ' . __("Admin") : __("Admin")); ?></title>	<?php echo Page::style_render() ?></head>

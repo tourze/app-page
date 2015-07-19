@@ -1,0 +1,26 @@
+.admin-cms-field-radio-table button.delete,
+.admin-cms-field-checkbox-table button.delete {
+	margin-top: 0;
+}
+.admin-cms-field-radio-table .template,
+.admin-cms-field-checkbox-table .template {
+	display: none;
+}
+
+
+.admin-cms-model-field-select-control {
+	padding-top: 0 !important;
+}
+.admin-cms-model-field-select {
+	width: 100%;
+	margin-bottom: 10px !important;
+}
+.admin-cms-model-field-group {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #f4f4f4;
+}
+.admin-cms-model-field-group .move {
+	margin-top: 10px;
+}
+

@@ -1,0 +1,19 @@
+#note-list-nav li a {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+input#note-title {
+	height: 40px;
+	line-height: 32px;
+	font-size: 24px;
+	padding-left: 10px;
+}
+#editor {
+	resize: vertical;
+}
+#note-actions {
+	margin-top: 10px;
+	text-align: right;
+}
+

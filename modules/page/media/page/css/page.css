@@ -1,0 +1,154 @@
+#page-header {
+	background: #089708;
+	padding: 8px 15px;
+	margin: 0 0 15px 0;
+	color: white;
+	height: 24px;
+	text-align: left;
+}
+	#page-header p {
+		margin:0;
+		padding:0;
+	}
+	#page-header a {
+		color:white;
+		background:transparent;
+		padding:0;
+		margin:0;
+		text-decoration:underline;
+		font-size:14px;
+	}
+	#page-header a:hover {
+		text-decoration:none;
+	}
+	
+#page-admin .page-area-title,
+#page-admin .page-element-control,
+#page-admin .page-element-control>p.title,
+#page-admin .page-element-control ul.page-element-actions,
+#page-admin .page-element-control ul.page-element-actions li,
+#page-admin .page-element-control ul.page-element-actions a {
+	text-decoration:none;
+	text-transform:none;
+	padding:0;
+	margin:0;
+	background:none;
+	color:black;
+	text-align:left;
+	text-transform:none;
+	text-decoration:none;
+	font-weight:normal;
+}
+
+#page-admin .page-area {
+	outline:2px dashed #158C15;
+	clear:left;
+	margin:-5px;
+	padding:5px;
+}
+
+#page-admin .page-area-title {
+	margin: 0 0 0 -7px;
+	padding: 4px 8px;
+	background: #158C15;
+	color:white;
+	font-weight:bold;
+	font-size:12px;
+	width:auto;
+	float:left;
+}
+
+#page-admin .page-element-control {
+	font-size:12px;
+	background:#158C15;
+	padding:5px;
+	color:white;
+	font-family:Arial,Helvetica,sans serif;
+	background:#666666;
+	position:relative;
+}
+
+	#page-admin .page-element-control p.title {
+		padding:.2em;
+		margin:0;
+		font-size:1.2em;
+		font-weight:bold;
+		color:white;
+		text-transform:none;
+		line-height:1em;
+	}
+	
+	#page-admin .page-element-control p.title img {
+		float:left;
+		position:relative;
+		top:-2px;
+	}
+	
+	#page-admin .page-element-control ul.page-element-actions {
+		display:none;
+		position:absolute;
+		background:#666666;
+		z-index:1;
+		left:0;
+		top:2.4em;
+		list-style:none;
+	}
+	
+	#page-admin .page-element-control:hover ul.page-element-actions {
+		display:block;
+	}
+	
+	#page-admin .page-element-control ul.page-element-actions li {
+		width:100%;
+		list-style:none;
+		padding:0;
+		margin:0;
+	}
+	
+		#page-admin .page-element-control ul.page-element-actions li:hover {
+			
+		}
+		
+		#page-admin .page-element-control ul.page-element-actions li a {
+			color:white;
+			font-weight:bold;
+			padding:9px 15px;
+			display:block;
+		}
+		
+		#page-admin .page-element-control ul.page-element-actions li a:hover {
+			background:#22AA22;
+		}
+	
+	#page-admin .page-element-control form {
+		padding-top:5px;
+	}
+	
+	#page-admin .page-element-control input, #page-admin .page-element-control select  {
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		border:1px solid #ddd;
+		font-family:inherit;
+		font-size:inherit;
+		padding:2px;
+	}
+	
+	#page-admin .page-element-control input.submit {
+		color:#fff;
+		padding:4px 5px
+	}
+	
+	#page-admin .page-element-control input.submit  {
+		border:none;
+		background: #1F7F1F;
+		text-decoration:none;
+		font-weight:bold;
+	}
+	
+	#page-admin .page-element-control input.submit:hover,
+	#page-admin .page-element-control input.submit:active {
+		border:none;
+		background:#1F7F10;
+	}
+

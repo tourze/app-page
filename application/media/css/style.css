@@ -1,0 +1,247 @@
+/***
+ie8 & ie9 modes
+***/
+.visible-ie8 {
+	display: none;
+}
+.ie8 .visible-ie8 {
+	display: inherit !important;
+}
+.visible-ie9 {
+	display: none;
+}
+.ie9 .visible-ie9 {
+	display: inherit !important;
+}
+.hidden-ie8 {
+	display: inherit;
+}
+.ie8 .hidden-ie8 {
+	display: none !important;
+}
+.hidden-ie9 {
+	display: inherit;
+}
+.ie9 .hidden-ie9 {
+	display: none !important;
+}
+
+/***
+Fix link outlines after click
+***/
+a,a:focus, a:hover, a:active {
+	outline: 0;
+}
+
+/***
+IE8 fix for form input height in fluid rows
+***/
+.ie8 .row-fluid [class*="span"] {
+	min-height: 20px !important;
+}
+
+body {
+	position: relative;
+	padding-top: 48px;
+	font-family: "Century Gothic","Microsoft yahei","微软雅黑";
+}
+
+a:hover,
+a:active,
+a,
+object,
+embed,
+*:focus {
+    -moz-outline-style: none;
+    outline: none!important; /*remove dotted border */
+}
+
+.navbar-fixed-top.scroll {
+    opacity: 0.94;
+}
+
+/**
+ * 微信按钮
+ */
+.btn.icon-weixin {
+	padding: 2px 8px 2px 2px;
+	font-weight: bold;
+	font-size: 16px;
+	height: 32px;
+	line-height: 28px;
+}
+.btn.icon-weixin img {
+	width: 24px;
+	height: 24px;
+	padding: 0 2px 2px 4px;
+}
+
+.bootbox.modal.fade.in {
+	top: 31%;
+}
+.modal-backdrop, .modal-backdrop.fade.in {
+	opacity: .3;
+	filter: alpha(opacity=30);
+}
+
+/**
+ * 导航条
+ */
+.navbar .nav > li > a {
+    text-shadow: none;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	font-weight: bold;
+}
+.navbar-inner {
+	background: #fff;
+}
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+	text-decoration: none;
+	background-color: #EEE;
+	color: #333;
+}
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+	position: fixed;
+}
+#topnav {
+	padding-bottom: 2px;
+	background: url(../img/top-line.png) bottom;
+}
+#topnav .navbar-inner {
+	filter: none;
+	border-bottom: 1px solid #e4e4e4;
+	box-shadow: none;
+	text-align: center;
+	padding-top: 5px;
+}
+#topnav .nav {
+    display: inline-block;
+    float: none;
+}
+#topnav .nav-collapse {
+    text-align: center;
+	display: inline-block;
+}
+#topnav .nav > li {
+	line-height: 24px;
+}
+#topnav .brand {
+	float: none;
+	display: inline-block;
+	vertical-align: top;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+#topnav .brand img {
+	height: 24px;
+}
+
+#topnav.scroll .brand {
+	padding: 4px 20px;
+}
+#topnav.scroll .nav > li > a {
+	padding: 4px 15px;
+}
+
+/**
+ * loading按钮
+ */
+#loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+	height: 100%;
+	opacity: 0.2;
+	width: 100%;
+	background: url("../img/loading.gif") no-repeat scroll center 0 #000000;
+	z-index: 9999;
+}
+
+/**
+ * 页面底部
+ */
+#footer {
+	padding: 10px 0;
+	border-top: 1px solid #eee;
+	background: #f7f7f7;
+}
+#footer > .container {
+}
+#footer .inner {
+	margin: 20px 0 20px 0;
+}
+
+#mainbox {
+	padding-top: 30px;
+	margin-bottom: 30px;
+}
+
+.comment-body {
+	margin-bottom: 18px;
+}
+
+
+#index-about-me {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+
+#main-content-sidebar .nav li a {
+	padding: 5px 5px 5px 10px;
+	border-bottom: 1px solid #f4f4f4;
+}
+
+#main-content-category .nav li a {
+	padding: 10px 8px 10px 13px;
+	border-bottom: 1px solid #f4f4f4;
+}
+
+/**
+ * 头像
+ */
+.avatar-block.popuser {
+	display: inline-block;
+}
+.avatar-block img, #current-avatar {
+	width: 54px;
+	height: 54px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/**
+ * 验证码
+ */
+#captcha-input {
+	height: 36px;
+	line-height: 36px;
+	font-size: 32px;
+	width: 100px;
+	margin-right: 10px;
+}
+#captcha-label {
+	font-weight: bold;
+	font-size: 18px;
+	margin: 0;
+	padding: 7px 0;
+}
+
+#main-content-category-list .title {
+	font-size: 24px;
+	line-height: 32px;
+	padding-bottom: 18px;
+	border-bottom: 1px solid #f4f4f4;
+}
+
