@@ -45,26 +45,10 @@ View::addPath(ROOT_PATH . 'view' . DIRECTORY_SEPARATOR);
 // 激活调试功能
 Debug::enable();
 
-Asset::$version = '20150621';
+Asset::$version = '20150719';
 
 // 指定控制器命名空间
-Route::$defaultNamespace = '\\uc\\Controller\\';
-
-if ( ! defined('UC_AUTH_COOKIE'))
-{
-    define('UC_AUTH_COOKIE', 'ucAuthKey');
-}
-
-if ( ! defined('UC_KEY'))
-{
-    define('UC_KEY', '');
-}
-
-// 路由定义
-if ( ! defined('UC_PATH'))
-{
-    define('UC_PATH', '');
-}
+Route::$defaultNamespace = '\\page\\Controller\\';
 
 // 后台部分
 Route::set('uc-admin', UC_PATH . 'admin(/<controller>(/<action>(/<id>)))')
