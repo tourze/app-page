@@ -7,20 +7,20 @@ use tourze\Route\Route;
  */
 return [
 
-    'navigation' => array(
-        __('Page Manage') => array(
-            'admin_route'		=> 'page-admin',
-            'admin_controller'	=> array('Entry', 'Snippet', 'Layout', 'Redirect'),
-            'links' => array(
-                __('Page Entry')		=> Route::url('page-admin', array('controller' => 'Entry')),
-                __('Snippet Manage')	=> Route::url('page-admin', array('controller' => 'Snippet')),
-                __('Layout Manage')		=> Route::url('page-admin', array('controller' => 'Layout')),
-                __('Redirect Manage')	=> Route::url('page-admin', array('controller' => 'Redirect')),
-            ),
-        ),
-    ),
+    'navigation' => [
+        __('Base Manage') => [
+            'admin_route'      => 'page-admin',
+            'admin_controller' => ['Entry', 'Snippet', 'Layout', 'Redirect'],
+            'links'            => [
+                __('Base Entry')      => Route::url('page-admin', ['controller' => 'Entry']),
+                __('Snippet Manage')  => Route::url('page-admin', ['controller' => 'Snippet']),
+                __('Layout Manage')   => Route::url('page-admin', ['controller' => 'Layout']),
+                __('Redirect Manage') => Route::url('page-admin', ['controller' => 'Redirect']),
+            ],
+        ],
+    ],
 
-    'users' => [
+    'users'      => [
         'admin'  => '@@qq.123',
         'ywisax' => 'Ladder19',
     ],

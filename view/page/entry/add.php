@@ -2,7 +2,7 @@
 <div class="row-fluid">
 	<div class="span9">
 		<form class="form-horizontal" method="post">
-			<legend><?php echo __('Adding New Page') ?></legend>
+			<legend><?php echo __('Adding New Base') ?></legend>
 			<p class="alert alert-info"><?php echo __('Adding a sub page to ":page".', array(':page' => $parent->name)) ?></p>
 			<?php include Kohana::find_file('views', 'page/error') ?>
 			<div class="control-group">
@@ -79,7 +79,7 @@
 			
 			<div class="control-group">
 				<div class="controls">
-					<button class="btn btn-primary" type="submit"><?php echo __('Create Page') ?></button>
+					<button class="btn btn-primary" type="submit"><?php echo __('Create Base') ?></button>
 					<a class="btn" href="<?php echo Route::url('page-admin', array('controller' => 'Entry')) ?>"><?php echo __('Cancel') ?></a>
 				</div>
 			</div>
@@ -89,7 +89,7 @@
 		<div class="well">
 			<h2><?php echo __('Help') ?></h2>
 			<hr />
-			<strong><?php echo __('Adding New Page') ?></strong>
+			<strong><?php echo __('Adding New Base') ?></strong>
 			<p></p>
 		</div>
 	</div>

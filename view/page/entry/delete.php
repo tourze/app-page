@@ -2,7 +2,7 @@
 <div class="row-fluid">
 	<div class="span9">
 		<form class="form-horizontal" method="post">
-			<legend><?php echo __('Delete Page') ?></legend>
+			<legend><?php echo __('Delete Base') ?></legend>
 			<?php include Kohana::find_file('views', 'page/error') ?>
 			<div class="control-group">
 				<div class="controls">

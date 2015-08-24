@@ -5,8 +5,8 @@
  */
 return [
     // 后台
-    'Page Entry' => 'Page实体',
-    'Page Manage' => '页面管理',
+    'Base Entry' => 'Page实体',
+    'Base Manage' => '页面管理',
     'Snippet Manage' => '片段管理',
     'Layout Manage' => '布局管理',
     'Redirect Manage' => '跳转管理',
@@ -123,7 +123,7 @@ return [
     'To move a page (and all of its children, if it has any), hover over it and click "move".' => '如果要移动一个页面(和它的所有子页面), 移动光标到其上, 然后点击 "移动".',
     'View a page' => '查看一个页面',
     'To view what a pages looks like, hover over it and click "view".' => '如果要查看一个页面, 移动光标到其上并点击 "查看"',
-    // Edit Page
+    // Edit Base
     'Back' => '返回',
     'View' => '查看',
     'You are editing :page' => '你当前正在编辑 :page',
@@ -137,12 +137,12 @@ return [
     'Move Down' => '下移',
     'Delete' => '删除',
     'Add' => '添加',
-    // Add Page / Edit Meta Data
-    'Adding New Page' => '添加一个新页面',
+    // Add Base / Edit Meta Data
+    'Adding New Base' => '添加一个新页面',
     'Adding a sub page to ":page".' => '添加一个子页面到 ":page".',
-    'Editing Page:' => '当前正在编辑页面:',
+    'Editing Base:' => '当前正在编辑页面:',
     'This is an external link, meaning it is not actually a page managed by this system, but rather it links to a page somewhere else.  To change it to a page that you can control here, uncheck "External Link" below.' => '这是一个外部链接, 这意味着它实际上不是由本系统管理页面, 而是链接到一个页面的其他地方. 将它更改为一个页面, 你可以控制, 取消选中 "外部链接" 下面.',
-    'Edit Page Content' => '编辑页面内容',
+    'Edit Base Content' => '编辑页面内容',
     'Click to edit this page\'s content' => '点击编辑这个页面的内容',
     'Location' => '位置',
     'Where in the list of siblings this page will appear.' => '这个页面要显示的位置。',
@@ -156,7 +156,7 @@ return [
     'If you are seeing this text, you might have javascript disabled.' => '如果你能看到这段信息, 那么你的 Javascript 可能已经被禁用.',
     'This will link to:' => '这将链接到:',
     'This page will have the URL:' => '这个页面将有个这样的 URL:',
-    'Page Time' => '页面创建时间',
+    'Base Time' => '页面创建时间',
     'This is the date that this page related.' => '这里记录当前页面的创建时间.',
     'External Link' => '外部链接',
     'Checking this will mean you can\'t edit this page here, it simply links to the URL above.' => '选中这个之后, 你将不能在这里编辑这个页面, 它仅仅只会链接到上面的 URL.',
@@ -166,7 +166,7 @@ return [
     'Check this to have this page show in the navigation menus.' => '选中这个后, 这个页面会在网站导航菜单中显示.',
     'Show in Site Map' => '在网站地图中显示',
     'Check this to have this page show in the site map.' => '选中这个后, 这个页面会在网站地图中显示.',
-    'Page Meta Data' => '页面 Meta 数据',
+    'Base Meta Data' => '页面 Meta 数据',
     'Title' => '标题',
     'This is what shows up at the top of the window or tab.' => '显示在导航或者内页标题的文字',
     'Meta Keywords' => 'Meta关键词',
@@ -175,23 +175,23 @@ return [
     'This is used by search engines to summarize your page for visitors.' => '页面描述，主要用于搜索引擎优化，最好不要太长',
     'Layout' => '布局',
     'Which layout this page should use.' => '这个页面会使用到的布局.',
-    'Create Page' => '创建页面',
-    // Move Page
-    'Move Page' => '移动页面',
+    'Create Base' => '创建页面',
+    // Move Base
+    'Move Base' => '移动页面',
     'Move ":page" to' => '移动 ":page" 到',
     'before' => '之前',
     'after' => '之后',
     'first child of' => '作为第一个子页面',
     'last child of' => '作为最后一个子页面',
     'To move this page to a new location, use the drop downs to choose the new location for the page.<br/><br/>This will move the page, and all of its children to the new location.<br/><br/>Example: If you selected "before" and "Products" the page would be moved to before Products.' => 'To move this page to a new location, use the drop downs to choose the new location for the page.<br/><br/>This will move the page, and all of its children to the new location.<br/><br/>Example: If you selected "before" and "Products" the page would be moved to before Products.',
-    // Delete Page
-    'Delete Page' => '删除页面',
+    // Delete Base
+    'Delete Base' => '删除页面',
     'Are you sure you want to delete the page ":page"?' => '你确定要删除这个页面吗 ":page"?',
     'This is not reversible!' => '注意, 该操作不可撤销!',
     'This page has children. Deleting it will delete all children too. Are you really sure you want to do this?' => '此页面下还有子页面。继续操作将会一并删除这些子页面。你确定要这样做吗？',
     'Yes, delete it.' => '是的, 删除它',
-    'Page content in this form only contains the url, navaigation name and other basic settings.' => '此处的页面内容，只包含了最基础的页面设置，如链接、导航名，你可以通过此处的快捷链接对页面内容进行进一步的编辑。',
-    'Page meta can set the meta tags about html when displaying, you can set the keywords and description about the page here.' => 'META的意思跟HTML头中的META意思一样，你可以在此处设置这些META信息，如页面关键词和描述等等。',
+    'Base content in this form only contains the url, navaigation name and other basic settings.' => '此处的页面内容，只包含了最基础的页面设置，如链接、导航名，你可以通过此处的快捷链接对页面内容进行进一步的编辑。',
+    'Base meta can set the meta tags about html when displaying, you can set the keywords and description about the page here.' => 'META的意思跟HTML头中的META意思一样，你可以在此处设置这些META信息，如页面关键词和描述等等。',
 
     // 元素
     'Adding :element' => '添加 :element',

@@ -1,17 +1,17 @@
 <?php
 
-namespace page\Controller;
+namespace page\Controller\Admin;
 
 use tourze\Controller\TemplateController;
 
 /**
  * 后台基础控制器
  *
- * @package        Page
+ * @package        Base
  * @category       Controller
  * @copyright      YwiSax
  */
-class AdminController extends TemplateController
+class BaseController extends TemplateController
 {
 
     protected $_model_name = '';
@@ -80,7 +80,7 @@ class AdminController extends TemplateController
     /**
      * 更新信息
      */
-    public function action_update()
+    public function actionUpdate()
     {
         $this->auto_render = false;
 
@@ -119,7 +119,7 @@ class AdminController extends TemplateController
     /**
      * 新增记录
      */
-    public function action_newitem()
+    public function actionNew()
     {
         $this->auto_render = false;
         $this->response->headers('content-type', 'application/json');
@@ -146,7 +146,7 @@ class AdminController extends TemplateController
     /**
      * 删除模块
      */
-    public function action_delete()
+    public function actionDelete()
     {
         $this->auto_render = false;
 

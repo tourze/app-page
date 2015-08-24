@@ -1,37 +1,35 @@
 {
   "name": "ywisax/com.tourze.page",
-  "description": "Page页面管理系统",
+  "description": "一个简单的，基于页面的CMS",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
     {
-      "name": "YwiSax",
-      "email": "25803471@qq.com"
+      "name": "tourze",
+      "email": "dev@tourze.com"
     }
   ],
   "require": {
     "tourze/core": "dev-master",
+    "tourze/flow": "dev-master",
+    "tourze/bootstrap": "dev-master",
+    "tourze/db": "dev-master",
+    "tourze/model": "dev-master",
     "tourze/tourze": "dev-master",
-    "twig/twig": "^1.18"
+    "twig/twig": "^1.21"
   },
   "autoload": {
-    "psr-0": {
+    "psr-4": {
       "page\\": "src/"
     }
   },
   "repositories": [
     {
-      "type": "git",
-      "url": "https://git.oschina.net/ywisax/com.tourze.php.tourze.git"
-    },
-    {
-      "type": "git",
-      "url": "https://git.oschina.net/ywisax/com.tourze.php.core.git"
-    },
-    {
       "type": "composer",
       "url": "http://php.composer.org/repo/packagist/"
     },
-    {"packagist": false}
+    {
+      "packagist": false
+    }
   ]
 }

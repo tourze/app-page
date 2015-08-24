@@ -14,16 +14,7 @@ if ( ! defined('ROOT_PATH'))
     define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
 }
 
-require 'vendor/autoload.php';
-
-// php文件后缀
-defined('EXT') || define('EXT', '.php');
-
-// 路径分隔符
-defined('DS') || define('DS', DIRECTORY_SEPARATOR);
-
-// 判断是否在sae中
-defined('IN_SAE') || define('IN_SAE', function_exists('sae_debug'));
+require_once 'vendor/autoload.php';
 
 Base::$cacheDir = ROOT_PATH . 'tmp/cache';
 Base::$logConfig = [
@@ -61,13 +52,13 @@ Route::set('admin', 'admin/<action>(/<params>).html', [
 
 // 后台路由
 Route::set('page-admin', 'admin/page/<controller>(/<action>(/<params>)).html', [
-    //'controller' => 'element|layout|log|Page|Redirect|Snippet',
+    //'controller' => 'element|layout|log|Base|Redirect|Snippet',
     'params' => '.*',
 ])
     ->defaults([
         'controller' => 'Entry',
         'action'     => 'index',
-        'directory'  => 'Page'
+        'directory'  => 'Admin'
     ]);
 
 // 默认路由
@@ -75,7 +66,7 @@ Route::set('default', '(<path>)', [
     'path' => '.*',
 ])
     ->defaults([
-        'controller' => 'Page',
+        'controller' => 'Base',
         'action'     => 'view',
     ]);
 

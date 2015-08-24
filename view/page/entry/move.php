@@ -2,7 +2,7 @@
 <div class="row-fluid">
 	<div class="span9">
 		<form class="form-horizontal" method="post">
-			<legend><?php echo __('Move Page') ?></legend>
+			<legend><?php echo __('Move Base') ?></legend>
 			<div class="control-group">
 				<label class="control-label"><?php echo __('Move ":page" to', array(':page' => $page->name)) ?></label>
 				<div class="controls">
@@ -20,7 +20,7 @@
 
 			<div class="control-group">
 				<div class="controls">
-					<button class="btn btn-primary" type="submit"><?php echo __('Move Page') ?></button>
+					<button class="btn btn-primary" type="submit"><?php echo __('Move Base') ?></button>
 					<a class="btn" href="<?php echo Route::url('page-admin', array('controller' => 'Entry')) ?>"><?php echo __('Cancel') ?></a>
 				</div>
 			</div>

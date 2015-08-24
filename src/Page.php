@@ -1,12 +1,16 @@
 <?php
 
 namespace page;
+
 use page\Exception\PageException;
+use tourze\Base\Helper\Arr;
+use tourze\Base\Helper\Text;
+use tourze\View\View;
 
 /**
  * Page基础类
  *
- * @package    Page
+ * @package    Base
  * @author     YwiSax
  */
 class Page
@@ -37,8 +41,9 @@ class Page
     /**
      * 返回当前页面。PS：这样写的助手方法是不是不好呢？
      *
-     * @param  string  页面参数键
-     * @param  mixed   页面参数值
+     * @param string $key   页面参数键
+     * @param mixed  $value 页面参数值
+     * @return mixed
      */
     public static function entry($key = null, $value = null)
     {
@@ -70,18 +75,14 @@ class Page
     /**
      * 主系统导航
      *
-     * @param   string  参数
-     * @return  string  渲染后的导航条
+     * @param  string $params 参数
+     * @return string  渲染后的导航条
      */
     public static function main_nav($params = '')
     {
-        if (Kohana::$profiling === true)
-        {
-            $benchmark = Profiler::start('Page', __FUNCTION__);
-        }
         if ( ! Page::$_override AND ( ! Page::entry('id')))
         {
-            return __('Page::main_nav failed because page is not loaded');
+            return __('Base::main_nav failed because page is not loaded');
         }
 
         $defaults = [
@@ -113,30 +114,23 @@ class Page
             'options'      => $options
         ])->render();
 
-        if (isset($benchmark))
-        {
-            Profiler::stop($benchmark);
-        }
         return $out;
     }
 
     /**
      * 二级菜单（侧边栏）菜单
      *
-     * @param   string   参数字符串
-     * @return  string
+     * @param string $params 参数字符串
+     * @param bool   $render 是否直接渲染
+     * @return string
+     * @throws \tourze\View\Exception\ViewException
      */
     public static function nav($params = '', $render = true)
     {
-        if (Kohana::$profiling === true)
-        {
-            $benchmark = Profiler::start('Page', __FUNCTION__);
-        }
-
         // 确保页面已经加载了。。。
         if ( ! Page::entry('id'))
         {
-            return __('Page::secondary_nav failed because page is not loaded');
+            return __('Base::secondary_nav failed because page is not loaded');
         }
 
         $options = Text::params($params);
@@ -167,8 +161,7 @@ class Page
         }
         else
         {
-            $page = Page::entry()
-                ->parent();
+            $page = Page::entry()->parent();
         }
 
         $descendants = $page->nav_nodes($options['depth']);
@@ -184,12 +177,7 @@ class Page
         }
         else
         {
-            $out = $descendants->as_array();
-        }
-
-        if (isset($benchmark))
-        {
-            Profiler::stop($benchmark);
+            $out = $descendants->asArray();
         }
 
         return $out;
@@ -205,12 +193,12 @@ class Page
     {
         if (Kohana::$profiling === true)
         {
-            $benchmark = Profiler::start('Page', __FUNCTION__);
+            $benchmark = Profiler::start('Base', __FUNCTION__);
         }
 
         if ( ! Page::entry('id'))
         {
-            return __('Page::bread_crumbs failed because page is not loaded');
+            return __('Base::bread_crumbs failed because page is not loaded');
         }
 
         $parents = Page::entry()
@@ -238,17 +226,17 @@ class Page
     {
         if (Kohana::$profiling === true)
         {
-            $benchmark = Profiler::start('Page', __FUNCTION__);
+            $benchmark = Profiler::start('Base', __FUNCTION__);
         }
 
         if ( ! Page::entry('id'))
         {
-            return __('Page::site_map failed because page is not loaded.');
+            return __('Base::site_map failed because page is not loaded.');
         }
 
         $out = Page::entry()
             ->root()
-            ->render_descendants('Page.Sitemap', false, 'ASC')
+            ->render_descendants('Base.Sitemap', false, 'ASC')
             ->render();
 
         if (isset($benchmark))
@@ -269,14 +257,14 @@ class Page
     {
         if ( ! Page::entry('id'))
         {
-            return __('Page Error: element_area(:id) failed. (Page::entry was not set)', [
+            return __('Base Error: element_area(:id) failed. (Base::entry was not set)', [
                 ':id' => $id,
             ]);
         }
 
         if (Kohana::$profiling === true)
         {
-            $benchmark = Profiler::start('Page', __FUNCTION__);
+            $benchmark = Profiler::start('Base', __FUNCTION__);
         }
 
         // 自定义页面内容
@@ -368,7 +356,7 @@ class Page
         // 读取和解析
         if (Kohana::$profiling === true)
         {
-            $benchmark = Profiler::start('Page', __FUNCTION__);
+            $benchmark = Profiler::start('Base', __FUNCTION__);
         }
 
         try
@@ -549,7 +537,7 @@ class Page
     {
         $run = Profiler::application();
         $run = $run['current'];
-        return __('Page rendered in :time seconds using :memory MB', [
+        return __('Base rendered in :time seconds using :memory MB', [
             ':time'   => Number::format($run['time'], 3),
             ':memory' => Number::format($run['memory'] / 1024 / 1024, 2),
         ]);
@@ -560,7 +548,7 @@ class Page
      *
      * 使用示例：
      *
-     *     echo Page::override('error', $content);
+     *     echo Base::override('error', $content);
      *
      * @param  string   要使用的布局名
      * @param  page     页面内容
@@ -618,7 +606,7 @@ class Page
         if (Kohana::$profiling === true)
         {
             // Start a new benchmark
-            $benchmark = Profiler::start('Page', 'Twig Render');
+            $benchmark = Profiler::start('Base', 'Twig Render');
         }
 
         if ($instance === null)
@@ -628,7 +616,7 @@ class Page
         }
 
         $template = $instance->loadTemplate($code);
-        $content = $template->render(['Page' => new Page]);
+        $content = $template->render(['Base' => new Page]);
 
         if (isset($benchmark))
         {

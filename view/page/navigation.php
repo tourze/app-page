@@ -6,7 +6,7 @@
 if (Kohana::$profiling === TRUE)
 {
 	// Start a new benchmark
-	$benchmark = Profiler::start('Page', 'MPTT Crawl');
+	$benchmark = Profiler::start('Base', 'MPTT Crawl');
 }
 // Change nodes into an array
 $nodes = $nodes->as_array();

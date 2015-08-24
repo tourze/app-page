@@ -2,14 +2,14 @@
 <div class="row-fluid">
 	<div class="span9">
 		<form class="form-horizontal" method="post">
-			<legend><?php echo __('Editing Page:') ?> <strong><?php echo $page->name ?></strong></legend>
+			<legend><?php echo __('Editing Base:') ?> <strong><?php echo $page->name ?></strong></legend>
 			<?php include Kohana::find_file('views', 'page/error') ?>
 
 			<?php if ($page->islink): ?>
 				<div class="alert alert-warning"><?php echo __('This is an external link, meaning it is not actually a page managed by this system, but rather it links to a page somewhere else.  To change it to a page that you can control here, uncheck "External Link" below.') ?></div>
 			<?php else: ?>
 				<h4>
-					<strong><?php echo __('Edit Page Content') ?></strong>
+					<strong><?php echo __('Edit Base Content') ?></strong>
 					<small class="pull-right"><?php echo HTML::anchor(Route::url('page-admin', array(
 							'controller' => 'Entry',
 							'action' => 'edit',
@@ -77,7 +77,7 @@
 			
 			<?php if ( ! $page->islink): ?>
 			<hr/>
-			<h3><?php echo __('Page Meta Data') ?></h3>
+			<h3><?php echo __('Base Meta Data') ?></h3>
 
 			<div class="control-group">
 				<label class="control-label" for="title"><?php echo __('Title') ?></label>
@@ -128,11 +128,11 @@
 		<div class="well">
 			<h2><?php echo __('Help') ?></h2>
 			<hr />
-			<strong><?php echo __('Edit Page Content') ?></strong>
-			<p><?php echo __('Page content in this form only contains the url, navaigation name and other basic settings.') ?></p>
+			<strong><?php echo __('Edit Base Content') ?></strong>
+			<p><?php echo __('Base content in this form only contains the url, navaigation name and other basic settings.') ?></p>
 			<hr />
-			<strong><?php echo __('Page Meta Data') ?></strong>
-			<p><?php echo __('Page meta can set the meta tags about html when displaying, you can set the keywords and description about the page here.') ?></p>
+			<strong><?php echo __('Base Meta Data') ?></strong>
+			<p><?php echo __('Base meta can set the meta tags about html when displaying, you can set the keywords and description about the page here.') ?></p>
 		</div>
 	</div>
 </div>
