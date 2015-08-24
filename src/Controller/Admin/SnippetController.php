@@ -7,21 +7,21 @@ namespace page\Controller\Admin;
  *
  * @package page\Controller\Admin
  */
-class SnippetController extends Controller_Page_Admin
+class SnippetController extends BaseController
 {
 
-    protected $_model_name = 'Page_Element_Snippet';
+    protected $_modelName = 'Page_Element_Snippet';
 
     /**
      * 片段首页，其实就是片段列表
      */
     public function actionIndex()
     {
-        $this->template->title = __('Snippets');
-        $this->template->content = View::factory('page/snippet/list', [
+        $this->template->set([
+            'title'    => __('Snippets'),
             'snippets' => Model_Page_Element::factory('Snippet')
                 ->order_by('id', 'ASC')
-                ->find_all(),
+                ->find_all()
         ]);
     }
 

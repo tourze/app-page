@@ -2,6 +2,8 @@
 
 namespace page\Controller\Admin;
 
+use page\Page;
+
 /**
  * 页面管理控制器，具体的页面加载已经移至[PageController::view]中去了
  *
@@ -25,7 +27,7 @@ class EntryController extends BaseController
             throw new Page_Exception('Could not load root node.');
         }
 
-        page::style('jquery.treeview/jquery.treeview.css');
+        Page::style('jquery.treeview/jquery.treeview.css');
         $this->template->title = __('Pages');
         $this->template->content = View::factory('page/entry/list');
     }

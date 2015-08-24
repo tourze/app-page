@@ -5,6 +5,10 @@ namespace page\Model;
 /**
  * Element是Page中最重要的概念。所有页面都是基于Element来组成的。
  *
+ * @property int   area
+ * @property int   order
+ * @property int   entry_id
+ * @property Entry entry
  * @package page\Model
  */
 class Element extends Base

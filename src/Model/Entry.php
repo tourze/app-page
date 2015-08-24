@@ -15,6 +15,7 @@ namespace page\Model;
  *
  * 关于几种不同元素模型的区别，可以参看具体的代码
  *
+ * @property int id
  * @package page\Model
  */
 class Entry extends ORM_MPTT

@@ -2,17 +2,15 @@
 
 namespace page\Controller\Admin;
 
-use page\Controller\AdminController;
-
 /**
  * 跳转管理
  *
  * @package page\Controller\Admin
  */
-class RedirectController extends AdminController
+class RedirectController extends BaseController
 {
 
-    protected $_model_name = 'Page_Redirect';
+    protected $_modelName = 'page\Model\Redirect';
 
     /**
      * 跳转列表

@@ -2,19 +2,23 @@
 
 namespace page\Controller\Admin;
 
+use page\Page;
+use tourze\Base\Config;
 use tourze\Controller\TemplateController;
+use tourze\Http\Message;
+use tourze\Model\Exception\ValidationException;
+use tourze\Model\Model;
+use tourze\View\View;
 
 /**
  * 后台基础控制器
  *
- * @package        Base
- * @category       Controller
- * @copyright      YwiSax
+ * @package page\Controller\Admin
  */
 class BaseController extends TemplateController
 {
 
-    protected $_model_name = '';
+    protected $_modelName = '';
 
     /**
      * @var  View  后台的模板视图
@@ -33,16 +37,13 @@ class BaseController extends TemplateController
     {
         parent::before();
 
-        // 直接写死啦。。。
-        $username = 'admin';
-        $password = '@@qq.123';
         // 使用基础认证
-        $users = Kohana::$config->load('admin.users');
+        $users = Config::load('admin')->get('users');
         if (
             is_array($users)
-            AND isset($_SERVER['PHP_AUTH_USER'])
-            AND isset($users[$_SERVER['PHP_AUTH_USER']])
-            AND ($_SERVER['PHP_AUTH_PW'] == $users[$_SERVER['PHP_AUTH_USER']])
+            && isset($_SERVER['PHP_AUTH_USER'])
+            && isset($users[$_SERVER['PHP_AUTH_USER']])
+            && ($_SERVER['PHP_AUTH_PW'] == $users[$_SERVER['PHP_AUTH_USER']])
         )
         {
             // go on
@@ -82,21 +83,20 @@ class BaseController extends TemplateController
      */
     public function actionUpdate()
     {
-        $this->auto_render = false;
-
-        if ( ! $this->_model_name)
+        $this->autoRender = false;
+        if ( ! $this->_modelName)
         {
-            $this->response->status(500);
+            $this->response->status = Message::INTERNAL_SERVER_ERROR;
             return;
         }
 
-        $item = ORM::factory($this->_model_name)
-            ->where('id', '=', $this->request->post('pk'))
-            ->find();
+        /** @var Model $item */
+        $item = new $this->_modelName;
+        $item->where('id', '=', $this->request->post('pk'))->find();
         // 记录不存在
         if ( ! $item->loaded())
         {
-            $this->response->status(500);
+            $this->response->status = Message::INTERNAL_SERVER_ERROR;
             return;
         }
 
@@ -109,9 +109,9 @@ class BaseController extends TemplateController
                 ->values($data)
                 ->save();
         }
-        catch (ORM_Validation_Exception $e)
+        catch (ValidationException $e)
         {
-            $this->response->status(500);
+            $this->response->status = Message::INTERNAL_SERVER_ERROR;
             return;
         }
     }
@@ -121,10 +121,11 @@ class BaseController extends TemplateController
      */
     public function actionNew()
     {
-        $this->auto_render = false;
+        $this->autoRender = false;
         $this->response->headers('content-type', 'application/json');
 
-        $item = Model::factory($this->_model_name);
+        /** @var Model $item */
+        $item = new $this->_modelName;
 
         $result = [];
         try
@@ -134,13 +135,13 @@ class BaseController extends TemplateController
                 ->save();
             $result['id'] = $item->id;
         }
-        catch (ORM_Validation_Exception $e)
+        catch (ValidationException $e)
         {
             //$this->response->status(500);
             $result['errors'] = $e->errors();
             //return;
         }
-        $this->response->body(json_encode($result));
+        $this->response->body = json_encode($result);
     }
 
     /**
@@ -148,15 +149,16 @@ class BaseController extends TemplateController
      */
     public function actionDelete()
     {
-        $this->auto_render = false;
+        $this->autoRender = false;
 
         // 查找字段
-        $item = ORM::factory($this->_model_name)
-            ->where('id', '=', $this->request->post('id'))
+        /** @var Model $item */
+        $item = new $this->_modelName;
+        $item->where('id', '=', $this->request->post('id'))
             ->find();
         if ( ! $item->loaded())
         {
-            $this->response->status(500);
+            $this->response->status = Message::INTERNAL_SERVER_ERROR;
             return;
         }
 
@@ -164,9 +166,9 @@ class BaseController extends TemplateController
         {
             $item->delete();
         }
-        catch (ORM_Validation_Exception $e)
+        catch (ValidationException $e)
         {
-            $this->response->status(500);
+            $this->response->status = Message::INTERNAL_SERVER_ERROR;
             return;
         }
     }

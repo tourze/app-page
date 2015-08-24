@@ -10,7 +10,10 @@ namespace page\Controller\Admin;
 class LayoutController extends BaseController
 {
 
-    protected $_model_name = 'Page_Layout';
+    /**
+     * @var string
+     */
+    protected $_modelName = 'page\Model\Layout';
 
     /**
      * 布局列表

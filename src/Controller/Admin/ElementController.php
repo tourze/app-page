@@ -2,6 +2,11 @@
 
 namespace page\Controller\Admin;
 
+use page\Exception\PageException;
+use page\Model\Element;
+use tourze\Base\Helper\Arr;
+use tourze\Route\Route;
+
 /**
  * 元素控制器
  *
@@ -16,22 +21,21 @@ class ElementController extends BaseController
     public function actionMoveUp()
     {
         $id = (int) $this->request->param('params');
-        $block = ORM::factory('Page_Element')
-            ->where('id', '=', $id)
-            ->find();
+        $block = new Element($id);
         if ( ! $block->loaded())
         {
-            throw new Page_Exception('Couldn\'t find block ID :id.', [
+            throw new PageException('Couldn\'t find block ID :id.', [
                 ':id' => $id,
             ]);
         }
 
         // 查找同页面的下一个块
-        $other = ORM::factory('Page_Element')
+        /** @var Element $other */
+        $other = (new Element)
             ->where('area', '=', $block->area)
             ->where('entry_id', '=', $block->entry->id)
             ->where('order', '<', $block->order)
-            ->order_by('order', 'DESC')
+            ->orderBy('order', 'DESC')
             ->find();
 
         if ($other->loaded())
@@ -43,8 +47,9 @@ class ElementController extends BaseController
             $block->update();
             $other->update();
         }
+
         // 跳转回编辑页面
-        HTTP::redirect(Route::url('page-admin', [
+        $this->redirect(Route::url('page-admin', [
             'controller' => 'Entry',
             'action'     => 'edit',
             'params'     => $block->entry->id,
@@ -57,19 +62,20 @@ class ElementController extends BaseController
     public function actionMoveDown()
     {
         $id = (int) $this->request->param('params');
-        $block = ORM::factory('Page_Element', $id);
+        $block = new Element($id);
         if ( ! $block->loaded())
         {
-            throw new Page_Exception('Couldn\'t find block ID :id.', [
+            throw new PageException('Couldn\'t find block ID :id.', [
                 ':id' => $id,
             ]);
         }
 
-        $other = ORM::factory('Page_Element')
+        /** @var Element $other */
+        $other = (new Element)
             ->where('area', '=', $block->area)
             ->where('entry_id', '=', $block->entry->id)
             ->where('order', '>', $block->order)
-            ->order_by('order', 'ASC')
+            ->orderBy('order', 'ASC')
             ->find();
 
         if ($other->loaded())
@@ -81,7 +87,7 @@ class ElementController extends BaseController
             $other->update();
         }
 
-        HTTP::redirect(Route::url('page-admin', [
+        $this->redirect(Route::url('page-admin', [
             'controller' => 'Entry',
             'action'     => 'edit',
             'params'     => $block->entry->id,
@@ -90,9 +96,6 @@ class ElementController extends BaseController
 
     /**
      * 返回添加元素的页面
-     *
-     * @param   string   type/page/area 如: 3/89/1
-     * @return  void
      */
     public function actionAdd()
     {
@@ -105,11 +108,11 @@ class ElementController extends BaseController
 
         if ( ! $page OR ! $type OR ! $area)
         {
-            throw new Page_Exception('Add requires 3 parameters, type, page and area.');
+            throw new PageException('Add requires 3 parameters, type, page and area.');
         }
-        if ( ! isset(Model_Page_Element::$type_maps[$type]))
+        if ( ! isset(Element::$type_maps[$type]))
         {
-            throw new Page_Exception('Element Type ":type" was not found.', [
+            throw new PageException('Element Type ":type" was not found.', [
                 ':type' => (int) $type,
             ]);
         }
@@ -124,9 +127,6 @@ class ElementController extends BaseController
 
     /**
      * 返回一个编辑元素的页面
-     *
-     * @param   int   要编辑的block ID
-     * @return  void
      */
     public function actionEdit()
     {
