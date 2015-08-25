@@ -3,7 +3,9 @@
 namespace page\Model;
 
 use page\Exception\PageException;
+use page\Page;
 use tourze\Model\MPTT;
+use tourze\View\View;
 
 /**
  * CMS页面模型
@@ -87,7 +89,7 @@ class Entry extends MPTT
     public function create_at($parent, $location = 'last')
     {
         // 如果不是外链的话，那就必须要有布局
-        if ( ! $this->is_link AND empty($this->layout->id))
+        if ( ! $this->is_link && empty($this->layout->id))
         {
             throw new PageException("You must select a layout for a page that is not an external link.");
         }
@@ -156,19 +158,20 @@ class Entry extends MPTT
     /**
      * 渲染页面
      *
-     * @returns  View  渲染的视图页面
+     * @return View 渲染的视图页面
+     * @throws PageException
      */
     public function render()
     {
         if ( ! $this->loaded())
         {
-            throw new Page_Exception('Base render failed because page was not loaded.', [], 404);
+            throw new PageException('Base render failed because page was not loaded.', [], 404);
         }
         Page::$_page = $this;
 
         // 渲染布局
         return View::factory(Page::TEMPLATE_VIEW, [
-            'layoutcode' => $this->layout->render(),
+            'layoutCode' => $this->layout->render(),
         ]);
     }
 

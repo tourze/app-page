@@ -6,6 +6,8 @@ use Exception;
 use page\Exception\PageException;
 use page\Model\Element;
 use page\Model\Entry;
+use page\Model\Layout;
+use tourze\Base\Base;
 use tourze\Base\Helper\Arr;
 use tourze\Base\Helper\Text;
 use tourze\View\View;
@@ -305,8 +307,12 @@ class Page
 
     /**
      * 根据指定类型和名称生成元素缓存名
+     *
+     * @param string $type
+     * @param string $name
+     * @return string
      */
-    public static function generate_element_cache_name($type, $name)
+    public static function generateElementCacheName($type, $name)
     {
         return Page::ELEMENT_CACHE_PREFIX . $type . '~' . $name;
     }
@@ -317,17 +323,17 @@ class Page
      * 如：
      *  echo element('snippet', 'footer');
      *
-     * @param  string   元素类型
-     * @param  name     元素名称
-     * @param  lifetime 是否缓存和缓存周期
+     * @param  string $type     元素类型
+     * @param  string $name     元素名称
+     * @param  int    $lifetime 是否缓存和缓存周期
      * @return string
      */
     public static function element($type, $name, $lifetime = null)
     {
         // 先尝试从缓存中读取
         $lifetime = (int) $lifetime;
-        $key = Page::generate_element_cache_name($type, $name);
-        if ($lifetime AND ($cache = Kohana::cache($key, null, $lifetime)))
+        $key = Page::generateElementCacheName($type, $name);
+        if ($lifetime AND ($cache = Base::cache($key, null, $lifetime)))
         {
             return $cache;
         }
@@ -369,17 +375,20 @@ class Page
         // 保存到缓存
         if ($lifetime)
         {
-            Kohana::cache($key, $out, $lifetime);
+            Base::cache($key, $out, $lifetime);
         }
         return $out;
     }
 
-    /*
+    /**
      * CSS控制方法，这个方法可能需要继续优化下
+     *
+     * @param string $css
+     * @param string $media
      */
-    public static function style($stylesheet, $media = null)
+    public static function style($css, $media = null)
     {
-        Page::$_stylesheets[$stylesheet] = $media;
+        self::$_stylesheets[$css] = $media;
     }
 
     /**
@@ -402,58 +411,60 @@ class Page
         return $out;
     }
 
-    /*
+    /**
      * Javascript控制方法，具体用法请参考Layout相关代码
      *
-     * @param	array	要加载的脚本地址
-     * @return	void
+     * @param  array $js 要加载的脚本地址
+     * @return mixed
      */
-    public static function script($javascript = null)
+    public static function script($js = null)
     {
         // 没参数时直接返回所有地址
-        if ($javascript === null)
+        if ($js === null)
         {
-            return Page::$_javascripts;
+            return self::$_javascripts;
         }
         // 循环赋值
-        if (is_array($javascript))
+        if (is_array($js))
         {
-            foreach ($javascript AS $js)
+            foreach ($js as $_js)
             {
-                Page::script($js);
+                self::script($_js);
             }
         }
         else
         {
             // 防止重复引用
-            if ( ! in_array($javascript, Page::$_javascripts))
+            if ( ! in_array($js, Page::$_javascripts))
             {
-                Page::$_javascripts[] = $javascript;
+                self::$_javascripts[] = $js;
             }
         }
     }
 
     /**
      * 移除指定的脚本链接
+     *
+     * @param mixed $js
      */
-    public static function scriptRemove($javascript = null)
+    public static function scriptRemove($js = null)
     {
         // 清空全部
-        if ($javascript === null)
+        if ($js === null)
         {
-            Page::$_javascripts = [];
+            self::$_javascripts = [];
         }
         // 如果不是数组，那就转换为数组
-        if ( ! is_array($javascript))
+        if ( ! is_array($js))
         {
-            $javascript = [$javascript];
+            $js = [$js];
         }
         // 循环删除
-        foreach (Page::$_javascripts AS $key => $value)
+        foreach (self::$_javascripts AS $key => $value)
         {
-            if (in_array($value, $javascript))
+            if (in_array($value, $js))
             {
-                unset(Page::$_javascripts[$key]);
+                unset(self::$_javascripts[$key]);
             }
         }
     }
@@ -471,16 +482,18 @@ class Page
         return $out;
     }
 
-    /*
+    /**
      * META控制方法
+     *
+     * @param array $metaList
      */
-    public static function meta($metas = [])
+    public static function meta($metaList = [])
     {
-        if ( ! is_array($metas))
+        if ( ! is_array($metaList))
         {
-            $metas = [$metas];
+            $metaList = [$metaList];
         }
-        foreach ($metas AS $key => $meta)
+        foreach ($metaList AS $key => $meta)
         {
             Page::$_metas[] = $meta;
         }
@@ -489,7 +502,7 @@ class Page
     /**
      * META渲染方法
      */
-    public static function meta_render()
+    public static function metaRender()
     {
         $out = '';
         foreach (Page::$_metas AS $key => $meta)
@@ -504,23 +517,23 @@ class Page
      *
      * 使用示例：
      *
-     *     echo Base::override('error', $content);
+     *     echo Page::override('error', $content);
      *
-     * @param  string   要使用的布局名
-     * @param  page     页面内容
+     * @param  string $layoutName 要使用的布局名
+     * @param  mixed  $content    页面内容
      * @return string
-     * @throws Page_Exception
+     * @throws PageException
      */
-    public static function override($layoutname, $content = null)
+    public static function override($layoutName, $content = null)
     {
         // 查找对应布局
-        $layout = ORM::factory('Page_Layout')
-            ->where('name', '=', $layoutname)
-            ->find();
+        $layout = new Layout([
+            'name' => $layoutName,
+        ]);
         if ( ! $layout->loaded())
         {
             throw new PageException("Failed to load the layout with name ':layout'.", [
-                ':layout' => $layoutname,
+                ':layout' => $layoutName,
             ]);
         }
         if ($content)
@@ -530,7 +543,7 @@ class Page
         Page::$_override = true;
         // 设置一些需要的变量，同时渲染页面啦
         return View::factory(Page::TEMPLATE_VIEW, [
-            'layoutcode' => $layout->render($content)
+            'layoutCode' => $layout->render($content)
         ]);
     }
 
