@@ -1,4 +1,3 @@
-<?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -45,6 +44,6 @@
 		echo View::factory('profiler/console');
 	}
 	?>
-	<?php echo Page::script_render(); ?>
+	<?php echo Page::scriptRender(); ?>
 </body>
 </html>

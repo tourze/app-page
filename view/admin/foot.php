@@ -1,1 +1,1 @@
-<?php defined('SYSPATH') OR die('No direct access allowed.'); ?><div id="footer">	<div class="container inner">		<p class="text-right">Powered by LZP</p>	</div></div><?php echo Page::script_render() ?><?phpif (Kohana::$profiling){	echo View::factory('profiler/console');}?>
+<div id="footer">	<div class="container inner">		<p class="text-right">Powered by LZP</p>	</div></div><?php echo Page::scriptRender() ?>

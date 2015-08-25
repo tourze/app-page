@@ -2,7 +2,9 @@
 
 namespace page;
 
+use Exception;
 use page\Exception\PageException;
+use page\Model\Element;
 use page\Model\Entry;
 use tourze\Base\Helper\Arr;
 use tourze\Base\Helper\Text;
@@ -198,7 +200,6 @@ class Page
         return $out;
     }
 
-
     /**
      * 渲染面包屑导航
      *
@@ -245,22 +246,17 @@ class Page
     /**
      * 渲染和输出元素内容
      *
-     * @param   int     元素ID
-     * @param   string  元素名称（admin时才有用）
-     * @return  boolean
+     * @param  int    $id   元素ID
+     * @param  string $name 元素名称（admin时才有用）
+     * @return bool
      */
-    public static function element_area($id, $name)
+    public static function elementArea($id, $name)
     {
         if ( ! Page::entry('id'))
         {
-            return __('Base Error: element_area(:id) failed. (Base::entry was not set)', [
+            return __('Base Error: elementArea(:id) failed. (Base::entry was not set)', [
                 ':id' => $id,
             ]);
-        }
-
-        if (Kohana::$profiling === true)
-        {
-            $benchmark = Profiler::start('Base', __FUNCTION__);
         }
 
         // 自定义页面内容
@@ -272,11 +268,11 @@ class Page
                 'content' => Arr::get(Page::$_content, $id - 1, '')
             ]);
         }
-        $elements = ORM::factory('Page_Element')
+        $elements = (new Element)
             ->where('entry_id', '=', Page::entry('id'))
             ->where('area', '=', $id)
-            ->order_by('order', 'ASC')
-            ->find_all();
+            ->orderBy('order', 'ASC')
+            ->findAll();
         $content = '';
 
         foreach ($elements AS $item)
@@ -290,16 +286,9 @@ class Page
             }
             catch (Exception $e)
             {
-                if (Kohana::$environment == Kohana::DEVELOPMENT)
-                {
-                    throw $e;
-                }
-                else
-                {
-                    $content .= __('Error: Could not load element, notice: :message.', [
-                        ':message' => $e->getMessage(),
-                    ]);
-                }
+                $content .= __('Error: Could not load element, notice: :message.', [
+                    ':message' => $e->getMessage(),
+                ]);
             }
         }
 
@@ -309,10 +298,6 @@ class Page
             'content' => $content
         ])->render();
 
-        if (isset($benchmark))
-        {
-            Profiler::stop($benchmark);
-        }
         return $out;
     }
 
@@ -349,12 +334,6 @@ class Page
 
         $out = '';
 
-        // 读取和解析
-        if (Kohana::$profiling === true)
-        {
-            $benchmark = Profiler::start('Base', __FUNCTION__);
-        }
-
         try
         {
             $element = Model_Page_Element::factory($type)
@@ -385,10 +364,6 @@ class Page
                 ':name' => $name,
             ]);
             $out .= '-->';
-        }
-        if (isset($benchmark))
-        {
-            Profiler::stop($benchmark);
         }
 
         // 保存到缓存
@@ -461,7 +436,7 @@ class Page
     /**
      * 移除指定的脚本链接
      */
-    public static function script_remove($javascript = null)
+    public static function scriptRemove($javascript = null)
     {
         // 清空全部
         if ($javascript === null)
@@ -486,7 +461,7 @@ class Page
     /**
      * JS渲染器
      */
-    public static function script_render()
+    public static function scriptRender()
     {
         $out = '';
         foreach (Page::$_javascripts AS $key => $javascript)
@@ -522,21 +497,6 @@ class Page
             $out .= "\t{$meta}\n";
         }
         return $out;
-    }
-
-    /**
-     * 返回当前渲染Profile信息
-     *
-     * @return string
-     */
-    public static function render_stats()
-    {
-        $run = Profiler::application();
-        $run = $run['current'];
-        return __('Base rendered in :time seconds using :memory MB', [
-            ':time'   => Number::format($run['time'], 3),
-            ':memory' => Number::format($run['memory'] / 1024 / 1024, 2),
-        ]);
     }
 
     /**

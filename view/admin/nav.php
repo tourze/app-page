@@ -1,4 +1,3 @@
-<?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
 <div id="head" class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">

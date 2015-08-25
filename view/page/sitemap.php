@@ -1,50 +1,48 @@
-<?php defined('SYSPATH') OR die('No direct access allowed.'); ?>
 <ul>
 <?php
 $level = $nodes
-	->current()
-	->{$level_column}
-	;
+    ->current()
+    ->{$level_column};
 $rootlevel = $level;
-$first = TRUE;
+$first = true;
 
 foreach ($nodes AS $node)
 {
-	// if show_map is false, skip this item
-	if ( ! $node->show_map)
-	{
-		continue;
-	}
+    // if show_map is false, skip this item
+    if ( ! $node->show_map)
+    {
+        continue;
+    }
 
-	if ($node->{$level_column} > $level)
-	{
-		echo "<ul>\n";
-	}
-	else if ($node->{$level_column} < $level)
-	{
-		
-		for( $i=0 ; $i < ($level - $node->{$level_column}) ; $i++ )
-		{
-			echo "</li></ul></li>\n";
-		}
-	}
-	else if ( ! $first)
-	{
-		echo "</li>\n";
-	}
+    if ($node->{$level_column} > $level)
+    {
+        echo "<ul>\n";
+    }
+    else if ($node->{$level_column} < $level)
+    {
 
-	for ( $j=0 ; $j < ($node->{$level_column}) ; $j++ )
-	{
-		echo "\t";
-	}
+        for ($i = 0; $i < ($level - $node->{$level_column}); $i++)
+        {
+            echo "</li></ul></li>\n";
+        }
+    }
+    else if ( ! $first)
+    {
+        echo "</li>\n";
+    }
 
-	echo "<li>" . HTML::anchor($node->url, $node->name);
+    for ($j = 0; $j < ($node->{$level_column}); $j++)
+    {
+        echo "\t";
+    }
 
-	$level = $node->{$level_column};
-	$first = FALSE;
+    echo "<li>" . HTML::anchor($node->url, $node->name);
+
+    $level = $node->{$level_column};
+    $first = false;
 }
-for( $i=0 ; $i < ($node->{$level_column}) - $rootlevel ; $i++ )
+for ($i = 0; $i < ($node->{$level_column}) - $rootlevel; $i++)
 {
-	echo "</li></ul>";
+    echo "</li></ul>";
 }
 echo "</li>\n</ul>";

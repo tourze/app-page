@@ -1,9 +1,13 @@
-<?php defined('SYSPATH') OR die('No direct access allowed.');
+<?php
+
+use page\Page;
+
 // 加载额外的媒体文件
 Page::script('jquery.treeview/jquery.treeview.js');
 Page::script('jquery.treeview/jquery.treeview.edit.js');
 Page::script('jquery.treeview/jquery.treeview.async.js');
 Page::script('page/js/page.js');
+
 ?>
 <div class="row-fluid">
 	<div class="span9">
