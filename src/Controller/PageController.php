@@ -52,7 +52,7 @@ class PageController extends WebController
             // 查找页面
             $page = new Entry;
             $page->where('url', '=', $url)
-                ->where('islink', '=', 0)
+                ->where('is_link', '=', 0)
                 ->find();
 
             if ( ! $page->loaded())

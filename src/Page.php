@@ -99,13 +99,13 @@ class Page
                 ->where('lvl', '=', 0)
                 ->find()
                 ->root()
-                ->nav_nodes($options['depth']);
+                ->navNodes($options['depth']);
         }
         else
         {
             $descendants = Page::entry()
                 ->root()
-                ->nav_nodes($options['depth']);
+                ->navNodes($options['depth']);
         }
 
         $out = View::factory('page/navigation', [
@@ -164,7 +164,7 @@ class Page
             $page = Page::entry()->parent();
         }
 
-        $descendants = $page->nav_nodes($options['depth']);
+        $descendants = $page->navNodes($options['depth']);
         //echo Debug::vars($descendants->as_array());
 
         if ($render)

@@ -2,6 +2,9 @@
 
 namespace page\Model;
 
+use tourze\Base\Security\Validation;
+use tourze\Model\MPTT;
+
 /**
  * CMS页面模型
  *
@@ -18,7 +21,7 @@ namespace page\Model;
  * @property int id
  * @package page\Model
  */
-class Entry extends ORM_MPTT
+class Entry extends MPTT
 {
 
     /**
@@ -81,7 +84,7 @@ class Entry extends ORM_MPTT
     public function create_at($parent, $location = 'last')
     {
         // 如果不是外链的话，那就必须要有布局
-        if ( ! $this->islink AND empty($this->layout->id))
+        if ( ! $this->is_link AND empty($this->layout->id))
         {
             throw new Page_Exception("You must select a layout for a page that is not an external link.");
         }
@@ -163,89 +166,53 @@ class Entry extends ORM_MPTT
         ]);
     }
 
-    public function nav_nodes($depth)
+    /**
+     * 返回指定深度的导航信息
+     *
+     * @param int $depth
+     * @return Entry[]
+     */
+    public function navNodes($depth)
     {
-        return ORM_MPTT::factory('Page_Entry')
-            ->where($this->left_column, '>=', $this->{$this->left_column})
-            ->where($this->right_column, '<=', $this->{$this->right_column})
-            ->where($this->scope_column, '=', $this->{$this->scope_column})
-            ->where($this->level_column, '<=', $this->{$this->level_column} + $depth)
-            ->where('shownav', '=', 1)
-            ->order_by($this->left_column, 'ASC')
-            ->find_all();
+        return (new self)
+            ->where($this->_leftColumn, '>=', $this->{$this->_leftColumn})
+            ->where($this->_rightColumn, '<=', $this->{$this->_rightColumn})
+            ->where($this->_scopeColumn, '=', $this->{$this->_scopeColumn})
+            ->where($this->_levelColumn, '<=', $this->{$this->_levelColumn} + $depth)
+            ->where('show_nav', '=', 1)
+            ->orderBy($this->_leftColumn, 'ASC')
+            ->findAll();
     }
 
-
     /**
-     * 重载values方法，进行额外的处理
-     *
-     * @param array values
-     * @return $this
+     * @inheritdoc
      */
     public function values(array $values, array $expected = null)
     {
-        if (isset($values['islink']) AND is_string($values['islink']))
+        if (isset($values['is_link']) AND is_string($values['is_link']))
         {
-            $values['islink'] = 1;
+            $values['is_link'] = 1;
         }
-        if (isset($values['generate_html']) AND is_string($values['generate_html']))
+        if (isset($values['show_map']) AND is_string($values['show_map']))
         {
-            $values['generate_html'] = 1;
+            $values['show_map'] = 1;
         }
-        if (isset($values['showmap']) AND is_string($values['showmap']))
+        if (isset($values['show_nav']) AND is_string($values['show_nav']))
         {
-            $values['showmap'] = 1;
-        }
-        if (isset($values['shownav']) AND is_string($values['shownav']))
-        {
-            $values['shownav'] = 1;
+            $values['show_nav'] = 1;
         }
 
         if ($this->loaded())
         {
             $new = [
-                'islink'        => 0,
-                'generate_html' => 0,
-                'showmap'       => 0,
-                'shownav'       => 0.
+                'is_link'  => 0,
+                'show_map' => 0,
+                'show_nav' => 0.
             ];
             $values = array_merge($new, $values);
         }
-        if ($this->loaded() AND ! $values['generate_html'])
-        {
-            Model_Page_Entry::clear_html_cache($this->url);
-        }
 
         return parent::values($values, $expected);
-    }
-
-    /**
-     * 创建记录的同时，插入一份到Log中去
-     */
-    public function create(Validation $validation = null)
-    {
-        $result = parent::create($validation);
-        if ($this->loaded())
-        {
-        }
-        return $result;
-    }
-
-    /**
-     * 修改记录的同时，把旧的数据保存到Log中去
-     */
-    public function update(Validation $validation = null)
-    {
-        if (empty($this->_changed))
-        {
-            // 没有东西需要更新
-            return $this;
-        }
-
-        if ($this->loaded())
-        {
-        }
-        return parent::update($validation);
     }
 
     /**
@@ -277,54 +244,6 @@ class Entry extends ORM_MPTT
         }
 
         return $parent_result;
-    }
-
-    public static $_html_cache_ext = ['html', 'htm', 'txt'];
-
-    /**
-     * 生成HTML文件名
-     */
-    public static function generate_html_filename($url)
-    {
-        $filename = DOCROOT . $url;
-        $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        //echo "ext:$ext ";
-        // 如果扩展名为空，或者是不允许生成的扩展名，那就当做目录来生成
-        if ( ! $ext OR ! in_array($ext, Model_Page_Entry::$_html_cache_ext))
-        {
-            $filename .= '/index.html';
-        }
-        return $filename;
-    }
-
-    /**
-     * 清楚HTML缓存
-     */
-    public static function clear_html_cache($url)
-    {
-        $filename = Model_Page_Entry::generate_html_filename($url);
-        return @unlink($filename);
-    }
-
-    /**
-     * 生成HTML
-     */
-    public static function generate_html($url, $html)
-    {
-        $filename = Model_Page_Entry::generate_html_filename($url);
-        $filepath = pathinfo($filename, PATHINFO_DIRNAME);
-        $basename = pathinfo($filename, PATHINFO_BASENAME);
-
-        // 先生成目录
-        try
-        {
-            file_put_contents($filename, $html);
-        }
-        catch (Exception $e)
-        {
-            return false;
-        }
-        return true;
     }
 }
 

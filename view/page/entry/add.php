@@ -36,30 +36,30 @@
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="islink"><?php echo __('External Link') ?></label>
+				<label class="control-label" for="is_link"><?php echo __('External Link') ?></label>
 				<div class="controls">
-					<label for="islink" class="checkbox">
-						<input type="checkbox" id="islink" name="islink"<?php if ($page->islink) { echo ' checked'; } ?> />
+					<label for="is_link" class="checkbox">
+						<input type="checkbox" id="is_link" name="is_link"<?php if ($page->is_link) { echo ' checked'; } ?> />
 						<?php echo __('Checking this will mean you can\'t edit this page here, it simply links to the URL above.') ?>
 					</label>
 				</div>
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="shownav"><?php echo __('Show in Navigation') ?></label>
+				<label class="control-label" for="show_nav"><?php echo __('Show in Navigation') ?></label>
 				<div class="controls">
-					<label for="shownav" class="checkbox">
-						<input type="checkbox" id="shownav" name="shownav"<?php if ($page->shownav) { echo ' checked'; } ?> />
+					<label for="show_nav" class="checkbox">
+						<input type="checkbox" id="show_nav" name="show_nav"<?php if ($page->show_nav) { echo ' checked'; } ?> />
 						<?php echo __('Check this to have this page show in the navigation menus.') ?>
 					</label>
 				</div>
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="showmap"><?php echo __('Show in Site Map') ?></label>
+				<label class="control-label" for="show_map"><?php echo __('Show in Site Map') ?></label>
 				<div class="controls">
-					<label for="showmap" class="checkbox">
-						<input type="checkbox" id="showmap" name="showmap"<?php if ($page->showmap) { echo ' checked'; } ?> />
+					<label for="show_map" class="checkbox">
+						<input type="checkbox" id="show_map" name="show_map"<?php if ($page->show_map) { echo ' checked'; } ?> />
 						<?php echo __('Check this to have this page show in the site map.') ?>
 					</label>
 				</div>

@@ -34,16 +34,16 @@ foreach ($nodes AS $node)
 		
 	<li <?php if ($node->lvl == 0) echo "class='open'" ?>>
 		<div class="pageinfo">
-			<?php if ($node->islink) echo '<div class="fam-arrow"></div>'; ?>
+			<?php if ($node->is_link) echo '<div class="fam-arrow"></div>'; ?>
 			<div style="float:left">
 				<p class='pagename'><?php echo $node->name ?></p>
 				<?php
-				// echo <p class="pageurl[ islink]">
-				echo "<p class='pageurl" . ($node->islink ?' islink':'') . "'>";
+				// echo <p class="pageurl[ is_link]">
+				echo "<p class='pageurl" . ($node->is_link ?' is_link':'') . "'>";
 				// if the link does not have :// in it, echo the url base (like http://example.com/ ) in a span, so its gray
 				echo ( strpos($node->url, '://') === FALSE ? "<span>" . URL::base(FALSE,TRUE) . "</span>" : '' );
 				// echo the url, and if its a link, put (Link) after it
-				echo $node->url . ($node->islink? ' ' . __('(Link)'):'');
+				echo $node->url . ($node->is_link? ' ' . __('(Link)'):'');
 				// close pageurl
 				echo "</p>";
 				?>

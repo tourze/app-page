@@ -10,8 +10,8 @@ $first = TRUE;
 
 foreach ($nodes AS $node)
 {
-	// if showmap is false, skip this item
-	if ( ! $node->showmap)
+	// if show_map is false, skip this item
+	if ( ! $node->show_map)
 	{
 		continue;
 	}

@@ -54,7 +54,7 @@ class EntryController extends BaseController
             ->find_all();
         foreach ($pages AS $page)
         {
-            $url = $page->islink ? URL::site($page->url) : URL::site($page->url);
+            $url = $page->is_link ? URL::site($page->url) : URL::site($page->url);
             $has_children = $page->has_children();
             $result[] = [
                 'id'          => $page->id,
@@ -144,7 +144,7 @@ class EntryController extends BaseController
         }
 
         // 如果当前页面是外链的话，那就没必要再处理其他的选项了
-        if ($page->islink)
+        if ($page->is_link)
         {
             HTTP::redirect(Route::url('page-admin', [
                 'controller' => 'Entry',
