@@ -164,7 +164,7 @@ class EntryController extends BaseController
         }
 
         $this->auto_render = false;
-        page::$adminmode = true;
+        page::$adminMode = true;
         page::style('page/css/page.css');
         $this->response->body($page->render());
     }

@@ -35,17 +35,17 @@
 							data-value="<?php echo $redirect->url ?>"
 						><?php echo $redirect->url ?></a>
 					</td>
-					<td class="newurl">
+					<td class="new_url">
 						<a
 							href="#"
 							class="editable"
 							data-type="text"
 							data-url="<?php echo Route::url('page-admin', array('controller' => 'Redirect', 'action' => 'update')) ?>"
 							data-pk="<?php echo $redirect->id ?>"
-							data-name="newurl"
+							data-name="new_url"
 							data-title="<?php echo __('Please enter the new url.') ?>"
-							data-value="<?php echo $redirect->newurl ?>"
-						><?php echo $redirect->newurl ?></a>
+							data-value="<?php echo $redirect->new_url ?>"
+						><?php echo $redirect->new_url ?></a>
 					</td>
 					<td class="type">
 						<a
@@ -55,7 +55,7 @@
 							data-url="<?php echo Route::url('page-admin', array('controller' => 'Redirect', 'action' => 'update')) ?>"
 							data-pk="<?php echo $redirect->id ?>"
 							data-name="type"
-							data-source='<?php echo $redirect->status_json() ?>'
+							data-source='<?php echo $redirect->statusJson() ?>'
 							data-title="<?php echo __('Please select the redirect type.') ?>"
 							data-value="<?php echo $redirect->type ?>"
 						><?php echo $redirect->type ?></a>
@@ -85,13 +85,13 @@
 							data-value=""
 						></a>
 					</td>
-					<td class="newurl">
+					<td class="new_url">
 						<a
 							href="#"
 							class="editable"
 							data-type="text"
 							data-url="<?php echo Route::url('page-admin', array('controller' => 'Redirect', 'action' => 'update')) ?>"
-							data-name="newurl"
+							data-name="new_url"
 							data-title="<?php echo __('Please enter the new url.') ?>"
 							data-value=""
 						></a>
@@ -104,7 +104,7 @@
 							data-url="<?php echo Route::url('page-admin', array('controller' => 'Redirect', 'action' => 'update')) ?>"
 							data-pk="<?php echo $redirect->id ?>"
 							data-name="type"
-							data-source='<?php echo $redirect->status_json() ?>'
+							data-source='<?php echo $redirect->statusJson() ?>'
 							data-title="<?php echo __('Please select the redirect type.') ?>"
 							data-value="<?php echo $redirect->type ?>"
 						><?php echo $redirect->type ?></a>

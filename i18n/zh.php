@@ -251,7 +251,7 @@ return [
     'Create Redirect' => '创建跳转',
     'Edit Redirect' => '编辑跳转',
     'Delete Redirect' => '删除跳转',
-    'Are you sure you want to delete the redirect from ":url" to ":newurl"?' => '你确定要删除这个跳转吗？（从":url"跳转到":newurl"）',
+    'Are you sure you want to delete the redirect from ":url" to ":new_url"?' => '你确定要删除这个跳转吗？（从":url"跳转到":new_url"）',
 
 
     // Errors

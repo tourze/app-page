@@ -2,6 +2,13 @@
 
 namespace page\Model;
 
+use page\Exception\PageException;
+use tourze\Http\Http;
+use tourze\Model\Exception\ValidationException;
+use tourze\Model\Model;
+use tourze\Route\Route;
+use tourze\View\View;
+
 /**
  * Element是Page中最重要的概念。所有页面都是基于Element来组成的。
  *
@@ -11,7 +18,7 @@ namespace page\Model;
  * @property Entry entry
  * @package page\Model
  */
-class Element extends Base
+class Element extends Model
 {
 
     /**
@@ -74,21 +81,21 @@ class Element extends Base
         {
             $type = $this->type;
         }
-        if ( ! isset(Model_Page_Element::$type_maps[$type]))
+        if ( ! isset(self::$type_maps[$type]))
         {
-            throw new Page_Exception('The requested element type ( :type ) not found.', [
+            throw new PageException('The requested element type ( :type ) not found.', [
                 ':type' => $type,
             ]);
         }
-        return Model_Page_Element::$type_maps[$type];
+        return self::$type_maps[$type];
     }
 
     /**
      * 添加页面元素
      *
-     * @param  int  要添加的页面ID
-     * @param  int  要添加的区域位置
-     * @return view
+     * @param  int $page 要添加的页面ID
+     * @param  int $area 要添加的区域位置
+     * @return View
      */
     public function actionAdd($page, $area)
     {
@@ -105,13 +112,13 @@ class Element extends Base
                 $this->values($this->request->post());
                 $this->create();
                 $this->create_block($page, $area);
-                HTTP::redirect(Route::url('page-admin', [
+                Http::redirect(Route::url('page-admin', [
                     'controller' => 'Entry',
                     'action'     => 'edit',
                     'params'     => $page
                 ]));
             }
-            catch (ORM_Validation_Exception $e)
+            catch (ValidationException $e)
             {
                 $view->errors = $e->errors();
             }
@@ -138,7 +145,7 @@ class Element extends Base
                 $this->update();
                 $view->success = __('Update successfully');
             }
-            catch (ORM_Validation_Exception $e)
+            catch (ValidationException $e)
             {
                 $view->errors = $e->errors('page');
             }
@@ -199,7 +206,7 @@ class Element extends Base
     {
         if ($model == 'Type')
         {
-            throw new Page_Exception('It seems not like a correct model type.');
+            throw new PageException('It seems not like a correct model type.');
         }
 
         $model = self::PAGE_ELEMENT_MODEL_PREFIX . ucfirst($model);
@@ -242,7 +249,7 @@ class Element extends Base
         }
 
         // 如果是管理权限，那就渲染控制面板
-        if (Base::$adminmode)
+        if (Base::$adminMode)
         {
             $out .= $this->render_panel();
         }

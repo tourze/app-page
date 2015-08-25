@@ -3,6 +3,7 @@
 namespace page;
 
 use page\Exception\PageException;
+use page\Model\Entry;
 use tourze\Base\Helper\Arr;
 use tourze\Base\Helper\Text;
 use tourze\View\View;
@@ -16,21 +17,34 @@ use tourze\View\View;
 class Page
 {
 
+    /**
+     * @const 默认使用的页面模板
+     */
     const TEMPLATE_VIEW = 'page/xhtml';
 
-    // 当前渲染的页面
+    /**
+     * @var string 当前渲染的页面
+     */
     public static $_page = null;
 
-    // 是否在管理模式中
-    public static $adminmode = false;
+    /**
+     * @var bool 是否在管理模式中
+     */
+    public static $adminMode = false;
 
-    // Content if we are in override
+    /**
+     * @var string 保存内容
+     */
     protected static $_content = null;
 
-    // 自定义内容
+    /**
+     * @var string 自定义内容
+     */
     protected static $_custom_content = null;
 
-    // 处于override模式
+    /**
+     * @var bool 处于override模式
+     */
     protected static $_override = false;
 
     // 一些资源文件，乱七八糟的
@@ -78,28 +92,28 @@ class Page
      * @param  string $params 参数
      * @return string  渲染后的导航条
      */
-    public static function main_nav($params = '')
+    public static function mainNav($params = '')
     {
-        if ( ! Page::$_override AND ( ! Page::entry('id')))
+        if ( ! Page::$_override && ( ! Page::entry('id')))
         {
-            return __('Base::main_nav failed because page is not loaded');
+            return __('{mainNav} load failed because page is not loaded');
         }
 
         $defaults = [
             'header' => false,
             'depth'  => 1
         ];
-
-        $options = array_merge($defaults, Text::params($params));
+        $options = Arr::merge($defaults, Text::params($params));
 
         if (Page::$_override)
         {
             // 没办法，只能是查找第一个页面然后写咯。
-            $descendants = ORM::factory('Page_Entry')
+            /** @var Entry $descendants */
+            $descendants = (new Entry)
                 ->where('lvl', '=', 0)
-                ->find()
-                ->root()
-                ->navNodes($options['depth']);
+                ->find();
+            $descendants = $descendants->root();
+            $descendants = $descendants->navNodes($options['depth']);
         }
         else
         {
@@ -164,8 +178,9 @@ class Page
             $page = Page::entry()->parent();
         }
 
+        /** @var Entry $descendants */
+        /** @var Entry $page */
         $descendants = $page->navNodes($options['depth']);
-        //echo Debug::vars($descendants->as_array());
 
         if ($render)
         {
@@ -189,16 +204,11 @@ class Page
      *
      * @return string
      */
-    public static function bread_crumbs()
+    public static function breadCrumbs()
     {
-        if (Kohana::$profiling === true)
-        {
-            $benchmark = Profiler::start('Base', __FUNCTION__);
-        }
-
         if ( ! Page::entry('id'))
         {
-            return __('Base::bread_crumbs failed because page is not loaded');
+            return __('{breadCrumbs} load failed because page is not loaded');
         }
 
         $parents = Page::entry()
@@ -209,11 +219,6 @@ class Page
             ->set('nodes', $parents)
             ->set('page', Page::entry('name'))
             ->render();
-
-        if (isset($benchmark))
-        {
-            Profiler::stop($benchmark);
-        }
         return $out;
     }
 
@@ -224,11 +229,6 @@ class Page
      */
     public static function site_map()
     {
-        if (Kohana::$profiling === true)
-        {
-            $benchmark = Profiler::start('Base', __FUNCTION__);
-        }
-
         if ( ! Page::entry('id'))
         {
             return __('Base::site_map failed because page is not loaded.');
@@ -239,10 +239,6 @@ class Page
             ->render_descendants('Base.Sitemap', false, 'ASC')
             ->render();
 
-        if (isset($benchmark))
-        {
-            Profiler::stop($benchmark);
-        }
         return $out;
     }
 
@@ -603,12 +599,6 @@ class Page
     {
         static $instance = null;
 
-        if (Kohana::$profiling === true)
-        {
-            // Start a new benchmark
-            $benchmark = Profiler::start('Base', 'Twig Render');
-        }
-
         if ($instance === null)
         {
             $loader = new Twig_Loader_String();
@@ -618,10 +608,6 @@ class Page
         $template = $instance->loadTemplate($code);
         $content = $template->render(['Base' => new Page]);
 
-        if (isset($benchmark))
-        {
-            Profiler::stop($benchmark);
-        }
         return $content;
     }
 }

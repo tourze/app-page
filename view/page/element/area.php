@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
 echo "\n<!-- Element Area  $id ($name) -->\n";
-if (Page::$adminmode)
+if (Page::$adminMode)
 {
 ?>
 <p class="page-area-title"><?php echo __('Element Area #:num - :name', array(':num' => $id, ':name' => $name)) ?></p>
@@ -9,7 +9,7 @@ if (Page::$adminmode)
 <?php
 }
 echo $content;
-if (Page::$adminmode)
+if (Page::$adminMode)
 {
 ?>
 <div class="page-element-control">

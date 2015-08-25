@@ -2,7 +2,7 @@
 
 namespace page\Model;
 
-use tourze\Base\Security\Validation;
+use page\Exception\PageException;
 use tourze\Model\MPTT;
 
 /**
@@ -18,7 +18,10 @@ use tourze\Model\MPTT;
  *
  * 关于几种不同元素模型的区别，可以参看具体的代码
  *
- * @property int id
+ * @property int    id
+ * @property int    is_link
+ * @property int    layout_id
+ * @property Layout layout
  * @package page\Model
  */
 class Entry extends MPTT
@@ -77,37 +80,37 @@ class Entry extends MPTT
     /**
      * 在指定节点创建页面
      *
-     * @param  Page_Page    父节点
-     * @param  string       /int   添加位置
-     * @return void
+     * @param  Entry      $parent   父节点
+     * @param  string|int $location 添加位置
+     * @throws PageException
      */
     public function create_at($parent, $location = 'last')
     {
         // 如果不是外链的话，那就必须要有布局
         if ( ! $this->is_link AND empty($this->layout->id))
         {
-            throw new Page_Exception("You must select a layout for a page that is not an external link.");
+            throw new PageException("You must select a layout for a page that is not an external link.");
         }
 
         // 看代码啊
         if ($location == 'first')
         {
-            $this->insert_as_first_child($parent);
+            $this->insertAsFirstChild($parent);
         }
         else if ($location == 'last')
         {
-            $this->insert_as_last_child($parent);
+            $this->insertAsLastChild($parent);
         }
         else
         {
-            $target = ORM::factory('Page_Entry', intval($location));
+            $target = new self(intval($location));
             if ( ! $target->loaded())
             {
-                throw new Page_Exception('Could not create page, could not find target for insert_as_next_sibling id: :location', [
+                throw new PageException('Could not create page, could not find target for insert_as_next_sibling id: :location', [
                     ':location' => $location,
                 ]);
             }
-            $this->insert_as_next_sibling($target);
+            $this->insertAsNextSibling($target);
         }
     }
 
@@ -116,7 +119,10 @@ class Entry extends MPTT
      */
     public function move_to($action, $target)
     {
-        $target = ORM::factory('Page_Entry', $target);
+        if ( ! $target instanceof $this)
+        {
+            $target = new self($target);
+        }
 
         if ( ! $target->loaded())
         {
@@ -127,23 +133,23 @@ class Entry extends MPTT
 
         if ($action == 'before')
         {
-            $this->move_to_prev_sibling($target);
+            $this->moveToPrevSibling($target);
         }
         elseif ($action == 'after')
         {
-            $this->move_to_next_sibling($target);
+            $this->moveToNextSibling($target);
         }
         elseif ($action == 'first')
         {
-            $this->move_to_first_child($target);
+            $this->moveToFirstChild($target);
         }
         elseif ($action == 'last')
         {
-            $this->move_to_last_child($target);
+            $this->moveToLastChild($target);
         }
         else
         {
-            throw new Page_Exception("Could not move page, action should be 'before', 'after', 'first' or 'last'.");
+            throw new PageException("Could not move page, action should be 'before', 'after', 'first' or 'last'.");
         }
     }
 

@@ -2,12 +2,20 @@
 
 namespace page\Model;
 
+use page\Exception\PageException;
+use tourze\Base\Log;
+use tourze\Http\Http;
+use tourze\Model\Model;
+
 /**
  * 跳转模型
  *
+ * @property string new_url
+ * @property string url
+ * @property mixed  type
  * @package page\Model
  */
-class Redirect extends Base
+class Redirect extends Model
 {
 
     /**
@@ -25,6 +33,11 @@ class Redirect extends Base
      */
     protected $_updatedColumn = ['column' => 'date_updated', 'format' => true];
 
+    /**
+     * 状态信息
+     *
+     * @return array
+     */
     public static function status()
     {
         return [
@@ -39,9 +52,14 @@ class Redirect extends Base
         ];
     }
 
-    public function status_json()
+    /**
+     * 返回状态数据的json格式
+     *
+     * @return string
+     */
+    public function statusJson()
     {
-        return json_encode(Model_Page_Redirect::status());
+        return json_encode(self::status());
     }
 
     /**
@@ -50,11 +68,11 @@ class Redirect extends Base
     public function filters()
     {
         return [
-            'url'    => [
+            'url'     => [
                 ['trim'],
                 ['strip_tags'],
             ],
-            'newurl' => [
+            'new_url' => [
                 ['trim'],
                 ['strip_tags'],
             ],
@@ -67,14 +85,14 @@ class Redirect extends Base
     public function rules()
     {
         return [
-            'url'    => [
-                ['not_empty'],
+            'url'     => [
+                ['notEmpty'],
             ],
-            'newurl' => [
-                ['not_empty'],
+            'new_url' => [
+                ['notEmpty'],
             ],
-            'type'   => [
-                ['not_empty'],
+            'type'    => [
+                ['notEmpty'],
             ],
         ];
     }
@@ -89,62 +107,22 @@ class Redirect extends Base
         {
             if ($this->type == '301' || $this->type == '302')
             {
-                Kohana::$log->add('INFO', __("Base - Redirected ':url' to ':newurl' (:type).", [
-                    ':url'    => $this->url,
-                    ':newurl' => $this->newurl,
-                    ':type'   => $this->type,
-                ]));
-                HTTP::redirect($this->newurl, $this->type);
+                Log::info('Redirected trigger.', [
+                    'url'     => $this->url,
+                    'new_url' => $this->new_url,
+                    'type'    => $this->type,
+                ]);
+                Http::redirect($this->new_url, $this->type);
             }
             else
             {
-                Kohana::$log->add('ERROR', __("Base - Could not redirect ':url' to ':newurl', type: :type.", [
-                    ':url'    => $this->url,
-                    ':newurl' => $this->newurl,
-                    ':type'   => $this->type,
-                ]));
-                throw new Page_Exception('Unknown redirect type', [], 404);
+                Log::error('Could not redirect', [
+                    'url'     => $this->url,
+                    'new_url' => $this->new_url,
+                    'type'    => $this->type,
+                ]);
+                throw new PageException('Unknown redirect type', [], 404);
             }
         }
-    }
-
-    /**
-     * 创建记录的同时，插入一份到Log中去
-     */
-    public function create(Validation $validation = null)
-    {
-        $result = parent::create($validation);
-        if ($this->loaded())
-        {
-        }
-        return $result;
-    }
-
-    /**
-     * 修改记录的同时，把旧的数据保存到Log中去
-     */
-    public function update(Validation $validation = null)
-    {
-        if (empty($this->_changed))
-        {
-            // 没有东西需要更新
-            return $this;
-        }
-
-        if ($this->loaded())
-        {
-        }
-        return parent::update($validation);
-    }
-
-    /**
-     * 删除前保存一份到Log中去
-     */
-    public function delete()
-    {
-        if ($this->loaded())
-        {
-        }
-        return parent::delete();
     }
 }

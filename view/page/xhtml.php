@@ -18,9 +18,9 @@
 	<link rel="shortcut icon" href="<?php echo Media::url('img/logo/favicon.ico') ?>" mce_href="<?php echo Media::url('img/logo/favicon.ico') ?>" type="image/x-icon">
 </head>
 <body
-	<?php if (Page::$adminmode) { echo ' id="page-admin"'; } ?>
+	<?php if (Page::$adminMode) { echo ' id="page-admin"'; } ?>
 >
-	<?php if (Page::$adminmode): ?>
+	<?php if (Page::$adminMode): ?>
 	<!-- Admin mode header -->
 	<div id="page-header">
 		<p>

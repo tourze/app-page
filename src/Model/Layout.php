@@ -1,15 +1,17 @@
 <?php
 
 namespace page\Model;
+use tourze\Model\Model;
 
 /**
  * CMS布局模型
  * 在CMS中，模型是跟页面直接相关的部分，因为布局决定页面的总体
  * 你也可以把这里的布局理解为Template（模板）
  *
+ * @property int id
  * @package page\Model
  */
-class Layout extends Base
+class Layout extends Model
 {
 
     /**
@@ -27,6 +29,9 @@ class Layout extends Base
      */
     protected $_updatedColumn = ['column' => 'date_updated', 'format' => true];
 
+    /**
+     * @var array
+     */
     protected $_hasMany = [
         // 每个布局都可能有多个页面
         'pages' => [
@@ -46,18 +51,7 @@ class Layout extends Base
             return __('Layout Failed to render because it wasn\'t loaded.');
         }
 
-        if (Kohana::$profiling === true)
-        {
-            $benchmark = Profiler::start('Base', 'Render Layout');
-        }
-
         $out = Base::twig_render($this->code);
-
-        if (isset($benchmark))
-        {
-            Profiler::stop($benchmark);
-        }
-
         return $out;
     }
 
