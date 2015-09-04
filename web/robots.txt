@@ -1,7 +1,2 @@
 User-agent: *
-
 Allow: /
-Disallow: /guide/*
-Disallow: /media/*
-Disallow: /upload/*
-Disallow: /user/*

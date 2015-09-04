@@ -13,6 +13,16 @@ if ( ! defined('ROOT_PATH'))
     define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
 }
 
+if ( ! defined('STORAGE_PATH'))
+{
+    define('STORAGE_PATH', ROOT_PATH . 'storage' . DIRECTORY_SEPARATOR);
+}
+
+if ( ! defined('WEB_PATH'))
+{
+    define('WEB_PATH', ROOT_PATH . 'web' . DIRECTORY_SEPARATOR);
+}
+
 // 指定配置加载目录
 Config::addPath(ROOT_PATH . 'config' . DIRECTORY_SEPARATOR);
 
@@ -27,18 +37,3 @@ View::addPath(ROOT_PATH . 'view' . DIRECTORY_SEPARATOR);
 
 // 指定控制器命名空间
 Route::$defaultNamespace = '\\page\\Controller\\';
-
-// 提交新内容
-Route::set('submit', 'submit')
-    ->defaults([
-        'controller' => 'Page',
-        'action'     => 'submit',
-    ]);
-
-// 默认路由
-Route::set('default', '(<path>)', ['path' => '.*'])
-    ->defaults([
-        'controller' => 'Page',
-        'action'     => 'view',
-    ]);
-

@@ -1,0 +1,154 @@
+{% extends "main.layout.twig" %}
+
+{% block title %}途者旅游网 - 改变旅游方式{% endblock %}
+
+{% block stylesheet %}
+    {{ parent() }}
+    <link href="//cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+{% endblock %}
+
+{% block head_ie %}
+    {{ parent() }}
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+{% endblock %}
+
+{% block header %}
+    <!-- ========== HEADER SECTION ========== -->
+    <div id="header-wrap">
+        <div class="container">
+            <br>
+
+            <h1>途者</h1>
+
+            <h2>行走途中 - 从未停歇</h2>
+
+            <div class="row">
+                <br>
+                <br>
+                <br>
+
+                <div class="col-lg-6 col-lg-offset-3">
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+    </div><!-- /header-wrap -->
+{% endblock %}
+
+{% block content %}
+    <!-- ========== WHITE SECTION ========== -->
+    <div id="w">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h3>我们是为旅行社提供专业定制服务的服务商</h3>
+
+                    <h2>为旅行社提供线上服务</h2>
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+    </div><!-- /w -->
+
+    <!-- ========== SERVICES - GREY SECTION ========== -->
+    <section id="services" name="services"></section>
+    <div id="g">
+        <div class="container">
+            <div class="row">
+                <h3>产品与服务</h3>
+                <br>
+                <br>
+
+                <div class="col-lg-3">
+                    <img src="/img/s1.png">
+                    <h4>OA线上办公</h4>
+
+                    <p>推动旅游业务无纸化，规范旅游业务流程，提高办公效率，进行数据分析，挖掘背后商机。</p>
+                </div>
+                <div class="col-lg-3">
+                    <img src="/img/s2.png">
+                    <h4>第三方交易平台</h4>
+
+                    <p>地接业务交接、散客拼团的第三方交易平台，在旅行社和游客之间建立安全的沟通桥梁。</p>
+                </div>
+                <div class="col-lg-3">
+                    <img src="/img/s3.png">
+                    <h4>云CRM系统</h4>
+
+                    <p>基于途者大数据来进行客户关系管理，多渠道与用户进行沟通，减少宣传成本，提高订单成交率。</p>
+                </div>
+                <div class="col-lg-3">
+                    <img src="/img/s4.png">
+                    <h4>创业者技术扶持</h4>
+
+                    <p>为OTA创业者提供早期技术支持，提供架构建设，参与原型建设，提高产品可用和稳定性。</p>
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+    </div><!-- /g -->
+
+    <!-- ========== WHITE SECTION ========== -->
+    <div id="w">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h3>新时代，唯有
+                        <bold>合力共创</bold>
+                        ，才能打出一片新天地。
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+    </div><!-- /w -->
+
+    <!-- ========== FOOTER SECTION ========== -->
+    <section id="contact" name="contact"></section>
+    <div id="f">
+        <div class="container">
+            <div class="row">
+                <h3><b>联系我们</b></h3>
+                <br>
+
+                <div class="col-lg-4">
+                    <h3><b>联系邮箱:</b></h3>
+
+                    <h3>support#tourze.com</h3>
+                    <br>
+                </div>
+
+                <div class="col-lg-4">
+                    <h3><b>联系号码:</b></h3>
+
+                    <h3>+86 135-602-53545</h3>
+                    <br>
+                </div>
+
+                <div class="col-lg-4">
+                    <h3><b>社交网络</b></h3>
+
+                    <p>
+                        <a href="index.html#"><i class="fa fa-facebook"></i></a>
+                        <a href="index.html#"><i class="fa fa-twitter"></i></a>
+                        <a href="index.html#"><i class="fa fa-envelope"></i></a>
+                    </p>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+    </div><!-- /f -->
+{% endblock %}
+
+{% block footer %}
+    <div id="c">
+        <div class="container">
+            <p><a href="http://www.miitbeian.gov.cn/">粤ICP备14057729号-4</a></p>
+        </div>
+    </div>
+{% endblock %}
