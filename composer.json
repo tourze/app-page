@@ -10,15 +10,12 @@
     }
   ],
   "require": {
-    "tourze/base": "dev-master",
-    "tourze/flow": "dev-master",
-    "tourze/route": "dev-master",
-    "tourze/http": "dev-master",
-    "tourze/controller": "dev-master",
-    "tourze/view": "dev-master",
-    "tourze/bootstrap": "dev-master",
-    "tourze/twig": "dev-master",
-    "tourze/server": "dev-master"
+    "tourze/base": "^1.0",
+    "tourze/bootstrap": "^1.0",
+    "tourze/controller": "^1.0",
+    "tourze/view": "^1.0",
+    "tourze/twig": "^1.0",
+    "tourze/server": "^1.0"
   },
   "autoload": {
     "psr-4": {

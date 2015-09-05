@@ -2,7 +2,6 @@
 
 namespace page\Controller;
 
-use page\Exception\PageException;
 use tourze\Base\Base;
 use tourze\Controller\WebController;
 use tourze\Http\Http;
