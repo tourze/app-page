@@ -1,5 +1,5 @@
 {
-  "name": "ywisax/com.tourze.page",
+  "name": "tourze/app-page",
   "description": "一个简单的，基于页面的CMS，可以用于简单的新闻系统、博客系统",
   "minimum-stability": "stable",
   "license": "proprietary",
@@ -21,14 +21,5 @@
     "psr-4": {
       "page\\": "src/"
     }
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "http://php.composer.org/repo/packagist/"
-    },
-    {
-      "packagist": false
-    }
-  ]
+  }
 }
